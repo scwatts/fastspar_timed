@@ -29,7 +29,6 @@ git clone https://github.com/scwatts/fastspar.git
 ###
 # Timed runs
 ###
-# FastSpar (single thread)
 for file in random_subsets/*; do
   basename="${file##*/}";
   noext="${basename/.tsv/}";
@@ -37,36 +36,19 @@ for file in random_subsets/*; do
   samples="${filling%%_*}";
   otus="${filling##*_}";
 
-  # Only run if the log file does not exist
-  if ! ls logs/fastspar_single_"${samples}"_"${otus}".log 1>/dev/null 2>&1; then
-    /usr/bin/time -v ./fastspar/src/fastspar -c "${file}" -r output/fastspar_single_cor_"${samples}"_"${outs}".tsv -a output/fastspar_single_cov_"${samples}"_"${outs}".tsv -i 48 -x 10 -t 1 1>logs/fastspar_single_"${samples}"_"${otus}".log 2>&1;
-  fi;
-done
-
-
-# FastSpar (multi-thread)
-for file in random_subsets/*; do
-  basename="${file##*/}";
-  noext="${basename/.tsv/}";
-  filling="${noext##*random_}";
-  samples="${filling%%_*}";
-  otus="${filling##*_}";
-
+  # FastSpar (multi-thread)
   # Only run if the log file does not exist
   if ! ls logs/fastspar_threaded_"${samples}"_"${otus}".log 1>/dev/null 2>&1; then
     /usr/bin/time -v ./fastspar/src/fastspar -c "${file}" -r output/fastspar_threaded_cor_"${samples}"_"${outs}".tsv -a output/fastspar_threaded_cov_"${samples}"_"${outs}".tsv -i 48 -x 10 -t 24 1>logs/fastspar_threaded_"${samples}"_"${otus}".log 2>&1;
   fi;
-done
 
+  # FastSpar (single thread)
+  # Only run if the log file does not exist
+  if ! ls logs/fastspar_single_"${samples}"_"${otus}".log 1>/dev/null 2>&1; then
+    /usr/bin/time -v ./fastspar/src/fastspar -c "${file}" -r output/fastspar_single_cor_"${samples}"_"${outs}".tsv -a output/fastspar_single_cov_"${samples}"_"${outs}".tsv -i 48 -x 10 -t 1 1>logs/fastspar_single_"${samples}"_"${otus}".log 2>&1;
+  fi;
 
-# SparCC
-for file in random_subsets/*; do
-  basename="${file##*/}";
-  noext="${basename/.tsv/}";
-  filling="${noext##*random_}";
-  samples="${filling%%_*}";
-  otus="${filling##*_}";
-
+  # SparCC
   # Only run if the log file does not exist
   if ! ls logs/sparcc_"${samples}"_"${otus}".log 1>/dev/null 2>&1; then
     /usr/bin/time -v ./sparcc/SparCC.py "${file}" -c output/sparcc_cor_"${samples}"_"${otus}".tsv -v output/sparcc_cov_"${samples}"_"${otus}".tsv -i 48 -x 10 1>logs/sparcc_"${samples}"_"${otus}".log 2>&1;
