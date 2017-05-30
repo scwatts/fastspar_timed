@@ -29,7 +29,7 @@ git clone https://github.com/scwatts/fastspar.git
 ###
 # Timed runs
 ###
-for file in random_subsets/*; do
+for file in $(ls -Sr random_subsets/*); do
   basename="${file##*/}";
   noext="${basename/.tsv/}";
   filling="${noext##*random_}";
