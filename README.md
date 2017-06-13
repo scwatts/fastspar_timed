@@ -15,12 +15,6 @@ apt-get install -y git mercurial build-essential libarmadillo-dev libgsl-dev lib
 # Change into tmp directory
 cd /var/
 
-# Install parallel (a recent version)
-wget https://ftp.gnu.org/gnu/parallel/parallel-20170522.tar.bz2
-tar -jxvf parallel-20170522.tar.bz2
-(cd parallel-20170522 && ./configure --prefix=/usr/ && make install -j)
-mount -t proc proc /proc
-
 # Clone repo and perform timed runs
 git clone https://github.com/scwatts/fastspar_timed.git
 cd fastspar_timed
