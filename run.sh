@@ -2,6 +2,16 @@
 
 
 ###
+# Options
+###
+# Print commands as they're executed
+set -x
+
+# Required for SparCC to run without thread oversubscription on a single CPU
+export OMP_NUM_THREADS=1
+
+
+###
 # Prepare data
 ###
 # Decompress OTU table
@@ -29,7 +39,6 @@ git clone https://github.com/scwatts/fastspar.git
 ###
 # Timed runs
 ###
-export OMP_NUM_THREADS=1
 for file in $(ls -Sr random_subsets/*); do
   basename="${file##*/}";
   noext="${basename/.tsv/}";
@@ -60,3 +69,13 @@ for file in $(ls -Sr random_subsets/*); do
     /usr/bin/time -v taskset --cpu-list 15 ./sparcc/SparCC.py "${file}" -c output/sparcc_cor_"${samples}"_"${otus}".tsv -v output/sparcc_cov_"${samples}"_"${otus}".tsv -i 48 -x 10 1>logs/sparcc_"${samples}"_"${otus}".log 2>&1;
   fi;
 done
+
+# Compile results
+./assets/compile_profiling_results.py --profile_log_fps logs/*log --time_output_fp compiled_time.tsv --memory_output_fp compiled_memory.tsv
+
+
+###
+# Generate plots
+###
+mkdir plots
+./assets/profile_plots.R
