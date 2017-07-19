@@ -44,6 +44,13 @@ d.memory.melt$samples_facet <- name_map.samples[as.character(d.memory.melt$Sampl
 }
 
 
+# Linear models
+fastspar.memory.lm <- lm(sqrt(d.memory$`FastSpar (single thread)`) ~ d.memory$OTUs + d.memory$Samples)
+fastspar.time.lm <- lm(sqrt(d.time$`FastSpar (16 threads)`) ~ d.time$OTUs + d.time$Samples)
+summary(fastspar.memory.lm)
+summary(fastspar.time.lm)
+
+
 ### Plot
 png(filename='plots/comparison_full_time.png', height=1000, width=1400, res=160)
 {
