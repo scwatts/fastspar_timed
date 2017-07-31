@@ -43,14 +43,14 @@ for file in $(ls -Sr random_subsets/*); do
   # Only run if the log file does not exist
   if ! ls logs/fastspar_threaded_"${samples}"_"${otus}".log 1>/dev/null 2>&1; then
     echo -e "\trunning fastspar threaded";
-    /usr/bin/time -v taskset --cpu-list 0-15 ./fastspar/src/fastspar -c "${file}" -r output/fastspar_threaded_cor_"${samples}"_"${outs}".tsv -a output/fastspar_threaded_cov_"${samples}"_"${outs}".tsv -i 48 -x 10 -t 16 -y 1>logs/fastspar_threaded_"${samples}"_"${otus}".log 2>&1;
+    /usr/bin/time -v taskset --cpu-list 0-15 ./fastspar/src/fastspar -c "${file}" -r output/fastspar_threaded_cor_"${samples}"_"${otus}".tsv -a output/fastspar_threaded_cov_"${samples}"_"${otus}".tsv -i 48 -x 10 -t 16 -y 1>logs/fastspar_threaded_"${samples}"_"${otus}".log 2>&1;
   fi;
 
   # FastSpar (single thread)
   # Only run if the log file does not exist
   if ! ls logs/fastspar_single_"${samples}"_"${otus}".log 1>/dev/null 2>&1; then
     echo -e "\trunning fastspar single";
-    /usr/bin/time -v taskset --cpu-list 15 ./fastspar/src/fastspar -c "${file}" -r output/fastspar_single_cor_"${samples}"_"${outs}".tsv -a output/fastspar_single_cov_"${samples}"_"${outs}".tsv -i 48 -x 10 -t 1 -y 1>logs/fastspar_single_"${samples}"_"${otus}".log 2>&1;
+    /usr/bin/time -v taskset --cpu-list 15 ./fastspar/src/fastspar -c "${file}" -r output/fastspar_single_cor_"${samples}"_"${otus}".tsv -a output/fastspar_single_cov_"${samples}"_"${otus}".tsv -i 48 -x 10 -t 1 -y 1>logs/fastspar_single_"${samples}"_"${otus}".log 2>&1;
   fi;
 
   # SparCC
