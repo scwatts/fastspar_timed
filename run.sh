@@ -2,13 +2,16 @@
 
 
 ###
-# Options
+# Init and Options
 ###
 # Print commands as they're executed
 set -x
 
 # Required for SparCC to run without thread oversubscription on a single CPU
 export OMP_NUM_THREADS=1
+
+# Install some R packages
+R -e "install.packages(c('ggplot2', 'reshape2'), repos='http://cran.rstudio.com/')"
 
 
 ###
