@@ -25,7 +25,7 @@ mkdir random_subsets
 parallel -N1 './assets/generate_random_subsets.py -c assets/otu_table_cluster_99_collapsed.tsv -a {1} -t {2} > random_subsets/otu_table_cluster_99_filtered_reduced_random_{1}_{2}.tsv' ::: $(seq 250 250 2500) ::: $(seq 250 250 2500)
 
 # Create some more directories
-mkdir output logs
+mkdir output logs plots
 
 
 ###
