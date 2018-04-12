@@ -33,7 +33,7 @@ hg clone https://bitbucket.org/yonatanf/sparcc
 
 # FastSpar
 git clone https://github.com/scwatts/fastspar.git
-(cd fastspar && ./configure --disable-arma-wrapper && make -j)
+(cd fastspar && ./autogen.sh && ./configure --disable-arma-wrapper && make -j)
 
 
 ###
