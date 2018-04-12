@@ -47,3 +47,5 @@ git clone https://github.com/scwatts/fastspar_timed.git
 cd fastspar_timed
 ./run.sh
 ```
+
+Note: some processes are parallised and are set to uses several threads. If your machine has less than the specified number, you'll need to edit the run.sh script to specify the number of threads to use.
