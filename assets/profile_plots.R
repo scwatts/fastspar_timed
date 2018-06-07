@@ -72,7 +72,7 @@ svg(filename='plots/comparison_full_memory.svg', height=8, width=16)
   g <- g + scale_colour_manual(values=c("#619CFF", "#F8766D"))
   g <- g + theme(axis.text.x = element_text(angle=45, hjust=1))
   g <- g + theme(text=element_text(size=18))
-  g <- g + labs(x='OTU number', y='Wall time (minutes)', colour='Method')
+  g <- g + labs(x='OTU number', y='Memory (GB)', colour='Method')
   g
 }
 dev.off()
